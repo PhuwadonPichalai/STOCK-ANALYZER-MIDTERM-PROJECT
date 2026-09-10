@@ -53,10 +53,10 @@ def main():
                 if roa is None or margin is None or debt_to_equity is None:
                     continue
 
-                # สูตรคำนวณคะแนนใหม่ ใช้ ROA แทน
+                # สูตรคำนวณคะแนน
                 score = (roa * 0.4) + (margin * 0.4) - (debt_to_equity * 0.2)
                 
-                # เขียนลงไฟล์ CSV ทีละบรรทัด (แบบ Record)
+                # เขียนลงไฟล์ CSV ทีละบรรทัด
                 writer.writerow([ticker, score, roa, margin, debt_to_equity])
                 count += 1
                 
@@ -65,7 +65,8 @@ def main():
                     print(f"ดึงข้อมูลและบันทึกลง CSV แล้ว {count} บริษัท...")
                     
             except Exception as e:
-                # ข้ามตัวที่มีปัญหาเงียบๆ
+                # ข้ามตัวที่เกิดข้อผิดพลาด เช่น ไม่มีข้อมูล หรือไม่สามารถดึงข้อมูลได้
+                print(f"เกิดข้อผิดพลาดกับหุ้น {ticker}: {e}")
                 continue
                 
     end_time = time.time()
